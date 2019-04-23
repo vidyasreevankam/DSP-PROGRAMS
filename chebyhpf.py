@@ -1,0 +1,45 @@
+import numpy as np
+from matplotlib import pyplot as plt
+import cmath
+t=0.1#sec
+omegap=0.7*3.14
+omegas=0.35*3.14
+delp=0.6
+dels=0.1
+e=((delp**-2)-1)**0.5
+print(e)#epsillon
+p1=omegap/2
+aomegap=(2/t)*(np.tan(p1))
+p2=omegas/2
+aomegas=(2/t)*(np.tan(p2))
+aomegap1=1
+aomegas1=aomegap/aomegas
+e1=((dels**-2)-1)
+e2=((delp**-2)-1)
+N=np.arccosh((e1/e2)**0.5)
+N1=np.arccosh(aomegas1/aomegap1)
+N2=N/N1
+N3=np.ceil(N2)
+print(N3)#order
+N4=1/N3
+y=((1+(1/e**2)))**0.5
+y1=1/e
+y2=(y+y1)**0.5
+y3=(y+y1)**-0.5
+yn=0.5*(y2-y3)
+print(yn)#yn
+k=N3/2
+u=((2*k)-1)*np.pi
+u1=(np.cos(u/(2*N3)))**2
+ck=(yn**2)+u1
+print(ck)
+bk=(np.sin(u/(2*N3)))*2*yn
+print(bk)
+j=cmath.sqrt(-1)
+w=np.arange(0,np.pi,0.01)
+z=np.exp(j*w)
+s=(2/0.1)*((z-1)/(z+1))
+s1=aomegap/s
+h=(delp*(aomegap1**2)*ck)/((s1**2)+(bk*aomegap1*s1)+((aomegap1**2)*ck))
+plt.plot(w,np.abs(h))
+plt.show()
